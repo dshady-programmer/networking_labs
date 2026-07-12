@@ -22,19 +22,19 @@ spanning-tree vlan 999 priority 24576
 interface Port-channel1
  description Downlink to Switch 2
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10,20,30,50,999
+ switchport trunk allowed vlan 10,20,30,999
  switchport mode trunk
 !
 interface Port-channel2
  description Downlink to Switch 3
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10,20,30,50,999
+ switchport trunk allowed vlan 10,20,30,999
  switchport mode trunk
 !
 interface FastEthernet0/1
  description Switch/Router trunk ports
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10,20,30,50,999
+ switchport trunk allowed vlan 10,20,30,999
  switchport mode trunk
  channel-protocol lacp
  channel-group 1 mode active
@@ -42,7 +42,7 @@ interface FastEthernet0/1
 interface FastEthernet0/2
  description Switch/Router trunk ports
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10,20,30,50,999
+ switchport trunk allowed vlan 10,20,30,999
  switchport mode trunk
  channel-protocol lacp
  channel-group 2 mode active
@@ -50,7 +50,7 @@ interface FastEthernet0/2
 interface FastEthernet0/3
  description Switch/Router trunk ports
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10,20,30,50,999
+ switchport trunk allowed vlan 10,20,30,999
  switchport mode trunk
  channel-protocol lacp
  channel-group 1 mode active
@@ -58,7 +58,7 @@ interface FastEthernet0/3
 interface FastEthernet0/4
  description Switch/Router trunk ports
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10,20,30,50,999
+ switchport trunk allowed vlan 10,20,30,999
  switchport mode trunk
  channel-protocol lacp
  channel-group 2 mode active
@@ -66,7 +66,7 @@ interface FastEthernet0/4
 interface FastEthernet0/5
  description Switch/Router trunk ports
  switchport trunk native vlan 999
- switchport trunk allowed vlan 10,20,30,50,999
+ switchport trunk allowed vlan 10,20,30,999
  switchport mode trunk
 !
 interface FastEthernet0/6
@@ -161,7 +161,7 @@ interface FastEthernet0/24
  shutdown
 !
 interface GigabitEthernet0/1
- switchport trunk allowed vlan 10,20,30,50,999
+ switchport trunk allowed vlan 10,20,30,999
  switchport mode trunk
 !
 interface GigabitEthernet0/2
@@ -173,7 +173,7 @@ interface Vlan1
  no ip address
  shutdown
 !
-interface Vlan50
+interface Vlan30
  ip address 192.168.0.50 255.255.255.240
 !
 banner motd ^C
