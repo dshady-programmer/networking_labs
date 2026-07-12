@@ -26,11 +26,11 @@ Subnet sizes were picked based on expected staff count per department, with room
 
 ## Design decisions
 
-**Inter-VLAN routing is allowed between all departments.** The requirement was that departments shouldn't be able to sniff each other's traffic, which VLAN segmentation already takes care of — each department is its own broadcast domain. On top of that, routing between VLANs is left open on purpose, so departments can send documents to each other and everyone can reach the shared printer, which lives in the Management VLAN. This was a deliberate choice to support normal day-to-day office communication, not an oversight.
+**Inter-VLAN routing is allowed between all departments.** The requirement was that departments shouldn't be able to sniff each other's traffic, which VLAN segmentation already takes care of i.e each department is its own broadcast domain. On top of that, routing between VLANs is left open on purpose, so departments can send documents to each other and everyone can reach the shared printer, which lives in the Management VLAN. This was a deliberate choice to support normal day-to-day office communication, not an oversight.
 
-**Switch management (VLAN 50) shares an IP range with the Management VLAN.** The three switches each have a management SVI (192.168.0.50, .51, .52) inside the same subnet used by the Management department (192.168.0.48/28), even though VLAN 50 is a separate VLAN tag from VLAN 30. This was intentional — it lets the Management department reach the switches directly for administration, without needing a router subinterface dedicated to VLAN 50.
+**Switch management (VLAN 50) shares an IP range with the Management VLAN.** The three switches each have a management SVI (192.168.0.50, .51, .52) inside the same subnet used by the Management department (192.168.0.48/28), even though VLAN 50 is a separate VLAN tag from VLAN 30. This was intentional (it lets the Management department reach the switches directly for administration, without needing a router subinterface dedicated to VLAN 50.)
 
-**Only Management can SSH or Telnet into the switches.** A standard ACL (`MGMT_RESTRICT`) is applied to the VTY lines on every switch, permitting only addresses from the Management subnet and denying everyone else. The reasoning: department staff shouldn't have any way to log into network infrastructure — that should be the Management team's job alone.
+**Only Management can SSH or Telnet into the switches.** A standard ACL (`MGMT_RESTRICT`) is applied to the VTY lines on every switch, permitting only addresses from the Management subnet and denying everyone else. The reasoning: department staff shouldn't have any way to log into network infrastructure, that should be the Management team's job alone.
 
 **Unused switch ports are isolated in a dead VLAN (99) and administratively shut down.** VLAN 99 is deliberately left out of every trunk's allowed VLAN list, so even before the shutdown was added, a device plugged into one of these ports had no path off its local switch. The `shutdown` command adds a second layer on top of that.
 
@@ -38,7 +38,7 @@ Subnet sizes were picked based on expected staff count per department, with room
 
 **SW01 is the STP root, SW02 is the secondary root.** Spanning-tree priorities are set explicitly (SW01 lowest, SW02 next) rather than left to a default election, so the root position is predictable and won't shift unexpectedly if a new switch is added later. Rapid PVST+ is used for faster convergence than legacy STP.
 
-**Redundant links between switches use EtherChannel (LACP).** Each pair of switches has two physical links bundled into a single logical link, so losing one cable doesn't mean losing the connection — traffic just shifts to the remaining link in the bundle.
+**Redundant links between switches use EtherChannel (LACP).** Each pair of switches has two physical links bundled into a single logical link, so losing one cable doesn't mean losing the connection, traffic just shifts to the remaining link in the bundle.
 
 **NAT overload (PAT) gets the whole office online through one public IP.** All three department subnets are translated behind the router's single public-facing address on the link to the ISP router.
 
