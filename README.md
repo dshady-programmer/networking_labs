@@ -165,7 +165,8 @@ Each lab has:
 ## 🛠️ Tools
 
 - Cisco Packet Tracer
-- Markdown for notes/documentation
+- Markdown and notepad for notes/documentation
+- Excel for topology documentation
 
 ## 📚 Why I'm doing this
 
