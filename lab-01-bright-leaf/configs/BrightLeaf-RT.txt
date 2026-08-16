@@ -1,0 +1,123 @@
+
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname BrightLeaf-RT
+!
+!
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+ip dhcp excluded-address 192.168.0.1 192.168.0.6
+ip dhcp excluded-address 192.168.0.33 192.168.0.36
+ip dhcp excluded-address 192.168.0.49 192.168.0.54
+!
+ip dhcp pool ACCOUNTING
+ network 192.168.0.0 255.255.255.224
+ default-router 192.168.0.1
+ dns-server 1.1.1.1
+ip dhcp pool ADMIN
+ network 192.168.0.32 255.255.255.240
+ default-router 192.168.0.33
+ dns-server 1.1.1.1
+ip dhcp pool MANAGEMENT
+ network 192.168.0.48 255.255.255.240
+ default-router 192.168.0.49
+ dns-server 1.1.1.1
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO1941/K9 sn FTX1524H1YF-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.10
+ description VLAN 10 interface (Accounting Department)
+ encapsulation dot1Q 10
+ ip address 192.168.0.1 255.255.255.224
+ ip nat inside
+!
+interface GigabitEthernet0/0.20
+ description VLAN 20 Interface (Admin/Reception)
+ encapsulation dot1Q 20
+ ip address 192.168.0.33 255.255.255.240
+ ip nat inside
+!
+interface GigabitEthernet0/0.30
+ description VLAN 30 Interface (Management)
+ encapsulation dot1Q 30
+ ip address 192.168.0.49 255.255.255.240
+ ip nat inside
+!
+interface GigabitEthernet0/1
+ ip address 216.0.5.50 255.255.255.252
+ ip nat outside
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip nat inside source list 1 interface GigabitEthernet0/1 overload
+ip classless
+ip route 0.0.0.0 0.0.0.0 216.0.5.49 
+!
+ip flow-export version 9
+!
+!
+access-list 1 permit 192.168.0.0 0.0.0.255
+!
+banner motd ^C
+##########################################
+Unauthorized Login is prohibited!!!
+##########################################
+^C
+!
+!
+!
+!
+line con 0
+ password 7 0822455D0A16
+ login
+!
+line aux 0
+!
+line vty 0 4
+ password 7 0822455D0A16
+ login
+!
+!
+!
+end
