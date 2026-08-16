@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 !
 version 15.4
 no service timestamps log datetime msec
@@ -141,4 +142,149 @@ line vty 0 4
 !
 !
 !
+=======
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname BRANCH-RT
+!
+!
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+ip dhcp excluded-address 172.16.4.1 172.16.4.10
+ip dhcp excluded-address 172.16.4.129 172.16.4.138
+ip dhcp excluded-address 172.16.5.1 172.16.5.10
+ip dhcp excluded-address 172.16.5.129 172.16.5.138
+ip dhcp excluded-address 172.16.6.1 172.16.6.10
+!
+ip dhcp pool SALES
+ network 172.16.4.0 255.255.255.128
+ default-router 172.16.4.1
+ dns-server 1.1.1.1
+ip dhcp pool ADMIN
+ network 172.16.4.128 255.255.255.128
+ default-router 172.16.4.129
+ dns-server 1.1.1.1
+ip dhcp pool MGMT
+ network 172.16.5.0 255.255.255.128
+ default-router 172.16.5.1
+ dns-server 1.1.1.1
+ip dhcp pool FINANCE
+ network 172.16.5.128 255.255.255.128
+ default-router 172.16.5.129
+ dns-server 1.1.1.1
+ip dhcp pool GUEST
+ network 172.16.6.0 255.255.254.0
+ default-router 172.16.6.1
+ dns-server 1.1.1.1
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/0.10
+ description Sales vlan
+ encapsulation dot1Q 10
+ ip address 172.16.4.1 255.255.255.128
+!
+interface GigabitEthernet0/0/0.20
+ description Admin vlan
+ encapsulation dot1Q 20
+ ip address 172.16.4.129 255.255.255.128
+!
+interface GigabitEthernet0/0/0.30
+ description Management vlan
+ encapsulation dot1Q 30
+ ip address 172.16.5.1 255.255.255.128
+!
+interface GigabitEthernet0/0/0.40
+ description finance vlan
+ encapsulation dot1Q 40
+ ip address 172.16.5.129 255.255.255.128
+!
+interface GigabitEthernet0/0/0.50
+ description Guest vlan
+ encapsulation dot1Q 50
+ ip address 172.16.6.1 255.255.254.0
+ ip access-group GUEST_ACL in
+!
+interface GigabitEthernet0/0/1
+ ip address 172.16.255.254 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router eigrp 1
+ network 172.16.4.0 0.0.3.255
+ network 172.16.255.254 0.0.0.0
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 172.16.255.253 
+!
+ip flow-export version 9
+!
+!
+ip access-list extended GUEST_ACL
+ permit tcp any any established
+ permit icmp any any echo-reply
+ deny ip any 172.16.4.0 0.0.1.255
+ deny ip any 172.16.0.0 0.0.3.255
+ permit ip any any
+!
+!
+!
+!
+!
+line con 0
+ password 7 0822455D0A16
+ login
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+>>>>>>> 0d63da7469fb37ceac2da4238cafa7bbba793098
 end
