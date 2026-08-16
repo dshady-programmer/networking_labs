@@ -39,8 +39,8 @@ Each lab has:
 |---|-----|-------|--------|
 | 1 | [Bright Leaf Accounting](#lab-01-bright-leaf-accounting-small-office) | VLANs, DHCP, inter-VLAN routing | ✅ Done |
 | 2 | [Coastline Retail, Static](#lab-02-coastline-retail-group-2-site-wan-static-routing) | Static routing, ACLs, multi-site addressing | ✅ Done |
-| 3 | [Coastline Retail, EIGRP rebuild](#lab-03-coastline-retail-group-rebuild-with-eigrp) | EIGRP basics, reflexive ACLs | ⬜ Not started |
-| 4 | [Coastline Retail, OSPF rebuild](#lab-04-coastline-retail-group-rebuild-with-ospf) | OSPF basics, EIGRP vs. OSPF comparison | ⬜ Not started |
+| 3 | [Coastline Retail, EIGRP rebuild](#lab-03-coastline-retail-group-rebuild-with-eigrp) | EIGRP basics | ✅ Done |
+| 4 | [Coastline Retail, OSPF rebuild](#lab-04-coastline-retail-group-rebuild-with-ospf) | OSPF basics | ✅ Done |
 | 5 | [Summit Ridge College](#lab-05-summit-ridge-college-campus-network) | Redundant switching, STP | ⬜ Not started |
 | 6 | [Northline Logistics](#lab-06-northline-logistics-nat-security-wireless) | NAT/PAT, wireless, port security | ⬜ Not started |
 | 7 | [Vantage Financial Group](#lab-07-vantage-financial-group-enterprise-capstone) | OSPF at scale, FHRP, summarization | ⬜ Not started |
@@ -86,25 +86,25 @@ Each lab has:
 
 ---
 
-## Lab 03: Coastline Retail Group, Rebuild with EIGRP
+## Lab 03: Coastline Retail Group, Rebuild with EIGRP ✅
 
 **The brief:** Same company, same topology as Lab 02, but now I've learned EIGRP, so I'm going back to replace the static routes with a dynamic routing setup.
 
-**What I'm practicing:** EIGRP basics (neighbor relationships, the composite bandwidth/delay metric, convergence), comparing static vs. dynamic routing tradeoffs on the same topology. Also planning to add a reflexive ACL for the Finance side, so return traffic from a legitimate session gets allowed back in dynamically instead of hand-writing a rule per protocol.
+**What I practiced:** EIGRP basics (neighbor relationships, the composite bandwidth/delay metric, convergence), comparing static vs. dynamic routing tradeoffs on the same topology. Also looked into reflexive ACLs for the Finance and Guest ACLs, documented the syntax even though Packet Tracer doesn't support `reflect`/`evaluate` in practice.
 
-**Note:** Going with EIGRP first since it's Cisco proprietary but simpler to get running than OSPF (no areas or network-type mismatches to fight with). I'll circle back with an OSPF rebuild right after, see Lab 04.
+**Note:** Went with EIGRP first since it's Cisco proprietary but simpler to get running than OSPF (no areas or network-type mismatches to fight with). Circled back with an OSPF rebuild right after, see Lab 04.
 
-➡️ Solution: `lab-03-coastline-eigrp/` *(coming soon)*
+➡️ Solution: [`lab-03-coastline-eigrp/`](./lab-03-coastline-eigrp)
 
 ---
 
-## Lab 04: Coastline Retail Group, Rebuild with OSPF
+## Lab 04: Coastline Retail Group, Rebuild with OSPF ✅
 
-**The brief:** Same company, same topology as Labs 02 and 03, one more pass, this time with OSPF, right after EIGRP while the comparison is still fresh.
+**The brief:** Same company, same topology as Labs 02 and 03, one more pass, this time with OSPF, right after EIGRP.
 
-**What I'm practicing:** OSPF basics, and a direct comparison against the EIGRP version from Lab 03, what's different in the configs, what's different in the metric, what's different in convergence behavior.
+**What I practiced:** OSPF basics, configured using both the classic `network` statement style and the per-interface `ip ospf` style across the two routers, just to get hands-on with both approaches.
 
-➡️ Solution: `lab-04-coastline-ospf/` *(coming soon)*
+➡️ Solution: [`lab-04-coastline-ospf/`](./lab-04-coastline-ospf)
 
 ---
 
@@ -165,8 +165,7 @@ Each lab has:
 ## 🛠️ Tools
 
 - Cisco Packet Tracer
-- Markdown and notepad for notes/documentation
-- Excel for topology documentation
+- Markdown for notes/documentation
 
 ## 📚 Why I'm doing this
 
